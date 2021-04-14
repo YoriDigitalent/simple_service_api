@@ -9,12 +9,12 @@ class User {
 
   factory User.getUser(Map<String, dynamic> object) {
     return User(
-        id: object['id'],
+        id: object['id'].toString(),
         name: object['first_name'] + " " + object['last_name']);
   }
 
   static Future<User> connectToAPI(String id) async {
-    String apiURL = "https://reqres.in/api/uses" + id;
+    String apiURL = "https://reqres.in/api/users/" + id;
 
     var apiResult = await http.get(apiURL);
     var jsonData = json.decode(apiResult.body);
