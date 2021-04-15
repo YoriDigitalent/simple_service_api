@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:simple_service_api/post.dart';
-import 'package:simple_service_api/user.dart';
+import 'package:simple_service_api/all_user.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,10 +11,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // ignore: avoid_init_to_null
-  Post post = null;
-  // ignore: avoid_init_to_null
-  User user = null;
+  String output = "no data";
 
   @override
   Widget build(BuildContext context) {
@@ -28,18 +24,18 @@ class _MyAppState extends State<MyApp> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Text((user != null)
-                      ? user.id + " | " + user.name
-                      : "Tidak ada data"),
+                  Text(output),
                   // ignore: deprecated_member_use
                   RaisedButton(
                     onPressed: () {
-                      User.connectToAPI("10").then((value) {
-                        user = value;
+                      User.connectToAPI("2").then((users) {
+                        output = " ";
+                        for (int i = 0; i < users.length; i++)
+                          output = output + "[ " + users[i].name + " ]";
                         setState(() {});
                       });
                     },
-                    child: Text("Get User"),
+                    child: Text("Get All User"),
                   )
                 ],
               ),
